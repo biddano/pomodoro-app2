@@ -7,6 +7,12 @@ using PomodoroApp.WebApi.Features.Timer;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.ConfigureHttpJsonOptions(options =>
+{
+    options.SerializerOptions.PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase;
+    options.SerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
+});
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("ReactApp", policy =>

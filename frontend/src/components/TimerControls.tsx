@@ -30,6 +30,9 @@ export const TimerControls = ({
     onStart(taskInput);
   };
 
+  const isFocusMode = timer.mode === 'Focus' || timer.mode === 0;
+  const isBreakMode = timer.mode === 'Break' || timer.mode === 1;
+
   return (
     <div className="timer-controls">
       <div className="task-input-group">
@@ -45,14 +48,14 @@ export const TimerControls = ({
 
       <div className="mode-buttons">
         <button
-          className={`mode-btn ${timer.mode === 'Focus' ? 'active' : ''}`}
+          className={`mode-btn ${isFocusMode ? 'active' : ''}`}
           onClick={() => onSwitchMode(0)}
           disabled={isLoading || timer.status === 'Running'}
         >
           Focus (25m)
         </button>
         <button
-          className={`mode-btn ${timer.mode === 'Break' ? 'active' : ''}`}
+          className={`mode-btn ${isBreakMode ? 'active' : ''}`}
           onClick={() => onSwitchMode(1)}
           disabled={isLoading || timer.status === 'Running'}
         >

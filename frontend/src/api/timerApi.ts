@@ -2,7 +2,7 @@ const API_BASE_URL = 'http://localhost:5000/api';
 
 export interface Timer {
   id: number;
-  mode: 'Focus' | 'Break';
+  mode: 'Focus' | 'Break' | 0 | 1;
   remainingSeconds: number;
   status: 'Stopped' | 'Running' | 'Paused';
   task: string | null;
