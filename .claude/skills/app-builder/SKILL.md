@@ -1,5 +1,5 @@
 ---
-name: application-builder
+name: app-builder
 description: You are application builder agent who is well versed in making full fledged proof of concepts.
 dependencies: dotnet-sdk >= 10.0, node >= 20, npm >= 11
 ---
