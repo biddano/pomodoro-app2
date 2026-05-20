@@ -2,9 +2,9 @@
 
 ## Overview
 
-The Pomodoro app is a simple focus timer that helps users work in focused 25-minute sessions, take 5-minute breaks, and associate each focus session with one key task.
+The Pomodoro app is a simple focus timer that helps users work in focused 25-minute sessions, take 5-minute breaks, and associate each focus session with one key task. The mascot of the app should be a pomeranian dog.
 
-## Archic
+## Architecture
 
 ### Architecture Guidelines
 

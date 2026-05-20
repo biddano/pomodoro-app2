@@ -40,6 +40,8 @@ Builder:
     - Build React Project
 
     - React Coding
+      - for enums that originate from the backend, ensure we have a mapping object on the frontend
+      - for frontend architecture, use [Bulletproof React](https://github.com/alan2207/bulletproof-react)
 
     - Configure Correctly
         a. Find the url:port on which the React frontend is being served.
