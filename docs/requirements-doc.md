@@ -4,6 +4,8 @@
 
 The Pomodoro app is a simple focus timer that helps users work in focused 25-minute sessions, take 5-minute breaks, and associate each focus session with one key task.
 
+## Archic
+
 ## Goal
 
 Help users stay focused by providing a minimal timer workflow for alternating between focus sessions and breaks.
@@ -80,3 +82,20 @@ V1 is complete when:
 - User can start, stop/pause, and reset the timer.
 - User can switch between focus and break modes.
 - User can enter and view one key task for the timer session.
+
+## Architecture Guidelines
+
+* Keep the architecture simple.
+* Do not add abstractions until they are needed.
+* Prefer feature-based organization over large generic folders.
+* Keep controllers thin.
+* Keep business rules testable.
+* Avoid placing timer logic directly in API endpoints.
+* Keep V1 focused on the basic Pomodoro workflow.
+
+## Database for state management
+The backend will use SqlLite for storage/state management. 
+Initial database resopnsibilities:
+* Create a db schema
+* Initialize the db tables
+* Create the DTO objects based on the db tables in the backend code base.
