@@ -1,0 +1,16 @@
+# Backend build artifacts
+backend/obj/
+backend/bin/
+backend/*
+
+# Frontend
+node_modules/
+dist/
+.env.local
+frontend/*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
