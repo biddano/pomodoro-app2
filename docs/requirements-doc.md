@@ -2,9 +2,9 @@
 
 ## Overview
 
-The Pomodoro app is a simple focus timer that helps users work in focused 25-minute sessions, take 5-minute breaks, and associate each focus session with one key task.
+The Pomodoro app is a simple focus timer that helps users work in focused 25-minute sessions, take 5-minute breaks, and associate each focus session with one key task. The mascot of the app should be a pomeranian dog.
 
-## Archic
+## Architecture
 
 ### Architecture Guidelines
 
@@ -70,17 +70,16 @@ The app should include the following controls:
 ## Non-Goals for V1
 
 The following are out of scope for the first version:
-
-- User accounts
-- Login/authentication
-- Timer history
-- Notifications
-- Custom timer durations
-- Task lists
-- Calendar integration
-- Analytics or reporting
-- Multiple tasks per session
-- Automatic Pomodoro cycles
+  - User accounts
+  - Login/authentication
+  - Timer history
+  - Notifications
+  - Custom timer durations
+  - Task lists
+  - Calendar integration
+  - Analytics or reporting
+  - Multiple tasks per session
+  - Automatic Pomodoro cycles
 
 ## Basic User Flow
 
@@ -94,10 +93,8 @@ The following are out of scope for the first version:
 ## Success Criteria
 
 V1 is complete when:
-
-- User can run a 25-minute focus timer.
-- User can run a 5-minute break timer.
-- User can start, stop/pause, and reset the timer.
-- User can switch between focus and break modes.
-- User can enter and view one key task for the timer session.
-
+  - User can run a 25-minute focus timer.
+  - User can run a 5-minute break timer.
+  - User can start, stop/pause, and reset the timer.
+  - User can switch between focus and break modes.
+  - User can enter and view one key task for the timer session.
