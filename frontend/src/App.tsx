@@ -1,153 +1,153 @@
-import { useState, useEffect } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import './App.css';
-import TimerDisplay from './components/TimerDisplay';
-import TimerControls from './components/TimerControls';
-import TaskInput from './components/TaskInput';
-import { timerAPI, taskAPI, TimerState } from './services/api';
+import { TimerDisplay } from './components/TimerDisplay';
+import { TimerControls } from './components/TimerControls';
+import { timerApi, Timer } from './api/timerApi';
 
 function App() {
-  const [timer, setTimer] = useState<TimerState | null>(null);
-  const [task, setTask] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [timer, setTimer] = useState<Timer | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [taskInput, setTaskInput] = useState('');
+  const pollIntervalRef = useRef<number | null>(null);
 
   useEffect(() => {
-    const initializeApp = async () => {
+    const initializeTimer = async () => {
       try {
-        const timerState = await timerAPI.getCurrent();
-        setTimer(timerState);
-
-        const taskData = await taskAPI.getCurrent();
-        setTask(taskData?.description || null);
-      } catch (err) {
-        setError('Failed to connect to server. Make sure the backend is running.');
-        console.error(err);
-      } finally {
-        setLoading(false);
+        const currentTimer = await timerApi.getCurrent();
+        setTimer(currentTimer);
+        setTaskInput(currentTimer.task || '');
+      } catch (error) {
+        console.error('Failed to load timer:', error);
       }
     };
 
-    initializeApp();
+    initializeTimer();
   }, []);
 
   useEffect(() => {
-    if (!timer?.isRunning) return;
+    if (timer?.status === 'Running') {
+      pollIntervalRef.current = window.setInterval(async () => {
+        try {
+          const updatedTimer = await timerApi.getCurrent();
+          setTimer(updatedTimer);
+        } catch (error) {
+          console.error('Failed to update timer:', error);
+        }
+      }, 1000);
+    } else {
+      if (pollIntervalRef.current) {
+        clearInterval(pollIntervalRef.current);
+        pollIntervalRef.current = null;
+      }
+    }
 
-    const interval = setInterval(() => {
-      setTimer((prev) => {
-        if (!prev) return prev;
-        return {
-          ...prev,
-          timeRemaining: Math.max(0, prev.timeRemaining - 1),
-          displayTime: formatTime(Math.max(0, prev.timeRemaining - 1)),
-          isRunning: prev.timeRemaining > 1,
-        };
-      });
-    }, 1000);
+    return () => {
+      if (pollIntervalRef.current) {
+        clearInterval(pollIntervalRef.current);
+      }
+    };
+  }, [timer?.status]);
 
-    return () => clearInterval(interval);
-  }, [timer?.isRunning]);
-
-  const formatTime = (seconds: number): string => {
-    const minutes = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
-  };
-
-  const handleStart = async () => {
+  const handleStart = async (task: string) => {
+    if (!timer) return;
+    setIsLoading(true);
     try {
-      const newState = await timerAPI.start();
-      setTimer(newState);
-    } catch (err) {
-      console.error('Failed to start timer', err);
+      const updatedTimer = await timerApi.start(task || undefined);
+      setTimer(updatedTimer);
+    } catch (error) {
+      console.error('Failed to start timer:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const handlePause = async () => {
+    setIsLoading(true);
     try {
-      const newState = await timerAPI.pause();
-      setTimer(newState);
-    } catch (err) {
-      console.error('Failed to pause timer', err);
+      const updatedTimer = await timerApi.pause();
+      setTimer(updatedTimer);
+    } catch (error) {
+      console.error('Failed to pause timer:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleResume = async () => {
+    setIsLoading(true);
+    try {
+      const updatedTimer = await timerApi.resume();
+      setTimer(updatedTimer);
+    } catch (error) {
+      console.error('Failed to resume timer:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleStop = async () => {
+    setIsLoading(true);
+    try {
+      const updatedTimer = await timerApi.stop();
+      setTimer(updatedTimer);
+    } catch (error) {
+      console.error('Failed to stop timer:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const handleReset = async () => {
+    setIsLoading(true);
     try {
-      const newState = await timerAPI.reset();
-      setTimer(newState);
-    } catch (err) {
-      console.error('Failed to reset timer', err);
+      const updatedTimer = await timerApi.reset();
+      setTimer(updatedTimer);
+    } catch (error) {
+      console.error('Failed to reset timer:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  const handleSwitchMode = async (mode: string) => {
+  const handleSwitchMode = async (mode: number) => {
+    setIsLoading(true);
     try {
-      const newState = await timerAPI.switchMode(mode);
-      setTimer(newState);
-    } catch (err) {
-      console.error('Failed to switch mode', err);
+      const updatedTimer = await timerApi.switchMode(mode);
+      setTimer(updatedTimer);
+    } catch (error) {
+      console.error('Failed to switch mode:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  const handleTaskChange = async (description: string) => {
-    try {
-      const taskData = await taskAPI.create(description);
-      setTask(taskData.description);
-    } catch (err) {
-      console.error('Failed to save task', err);
-    }
+  const handleTaskChange = (task: string) => {
+    setTaskInput(task);
   };
 
-  const handleTaskClear = async () => {
-    try {
-      await taskAPI.clear();
-      setTask(null);
-    } catch (err) {
-      console.error('Failed to clear task', err);
-    }
-  };
-
-  if (loading) {
-    return <div className="app-container"><p>Loading...</p></div>;
-  }
-
-  if (error) {
-    return <div className="app-container error"><p>{error}</p></div>;
+  if (!timer) {
+    return <div className="app-container"><div className="loading">Loading...</div></div>;
   }
 
   return (
     <div className="app-container">
       <header className="app-header">
-        <h1>Pomodoro Timer</h1>
-        <p>Stay focused, achieve more</p>
+        <h1>🍅 Pomodoro Timer</h1>
       </header>
 
       <main className="app-main">
-        {timer && (
-          <>
-            <TimerDisplay
-              displayTime={timer.displayTime}
-              mode={timer.mode}
-              isRunning={timer.isRunning}
-            />
-
-            <TimerControls
-              isRunning={timer.isRunning}
-              mode={timer.mode}
-              onStart={handleStart}
-              onPause={handlePause}
-              onReset={handleReset}
-              onModeSwitchFocus={() => handleSwitchMode('Focus')}
-              onModeSwitchBreak={() => handleSwitchMode('Break')}
-            />
-          </>
-        )}
-
-        <TaskInput
-          currentTask={task}
+        <TimerDisplay timer={timer} />
+        <TimerControls
+          timer={timer}
+          isLoading={isLoading}
+          onStart={handleStart}
+          onPause={handlePause}
+          onResume={handleResume}
+          onStop={handleStop}
+          onReset={handleReset}
+          onSwitchMode={handleSwitchMode}
+          taskInput={taskInput}
           onTaskChange={handleTaskChange}
-          onTaskClear={handleTaskClear}
         />
       </main>
     </div>

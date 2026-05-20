@@ -1,13 +1,12 @@
 # Backend build artifacts
-backend/obj/
-backend/bin/
-backend/*
+**/obj
+**/bin
 
 # Frontend
 node_modules/
 dist/
 .env.local
-frontend/*
+
 
 # IDE
 .vscode/

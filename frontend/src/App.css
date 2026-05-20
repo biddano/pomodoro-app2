@@ -1,84 +1,59 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 .app-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-  padding: 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   display: flex;
   flex-direction: column;
-}
-
-.app-container.error {
-  justify-content: center;
   align-items: center;
-}
-
-.app-container.error p {
-  background: #fff3cd;
-  border: 2px solid #ffc107;
-  color: #856404;
-  padding: 20px;
-  border-radius: 8px;
-  text-align: center;
-  font-size: 16px;
+  justify-content: center;
+  padding: 2rem 1rem;
 }
 
 .app-header {
   text-align: center;
-  margin-bottom: 40px;
-  color: #333;
+  margin-bottom: 2rem;
 }
 
 .app-header h1 {
-  font-size: 48px;
+  font-size: 3rem;
+  color: white;
   font-weight: bold;
-  margin: 0 0 10px 0;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.app-header p {
-  font-size: 18px;
-  color: #666;
-  margin: 0;
-  font-weight: 500;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .app-main {
-  max-width: 600px;
-  margin: 0 auto;
   background: white;
-  border-radius: 20px;
-  padding: 40px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  border-radius: 1rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  padding: 3rem 2rem;
+  max-width: 600px;
+  width: 100%;
 }
 
-@media (max-width: 768px) {
+.loading {
+  color: white;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
   .app-header h1 {
-    font-size: 36px;
+    font-size: 2rem;
   }
 
   .app-main {
-    padding: 25px;
-    border-radius: 15px;
-  }
-}
-
-@media (max-width: 480px) {
-  .app-header h1 {
-    font-size: 28px;
-  }
-
-  .app-main {
-    padding: 20px;
-  }
-
-  .timer-value {
-    font-size: 64px !important;
-  }
-
-  .btn {
-    padding: 10px 16px !important;
-    font-size: 14px !important;
+    padding: 2rem 1rem;
   }
 }

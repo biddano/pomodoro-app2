@@ -1,24 +1,55 @@
 .timer-display {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 20px;
-  padding: 40px;
-  margin: 30px 0;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.mode-badge {
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
   color: white;
+}
+
+.mode-badge.focus {
+  background-color: #3498db;
+}
+
+.mode-badge.break {
+  background-color: #2ecc71;
+}
+
+.timer-circle {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-  position: relative;
+  transition: all 0.3s ease;
 }
 
-.timer-display.break {
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+.timer-circle.running {
+  animation: pulse 1s ease-in-out infinite;
 }
 
-.timer-display.running {
-  animation: pulse-glow 2s infinite;
+.timer-circle.paused {
+  opacity: 0.7;
+  background: linear-gradient(135deg, #bdc3c7 0%, #95a5a6 100%);
 }
 
-@keyframes pulse-glow {
-  0%, 100% {
+.timer-circle.stopped {
+  background: linear-gradient(135deg, #ecf0f1 0%, #bdc3c7 100%);
+}
+
+@keyframes pulse {
+  0%,
+  100% {
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
   }
   50% {
@@ -26,36 +57,24 @@
   }
 }
 
-.mode-label {
-  font-size: 18px;
-  font-weight: 600;
-  margin: 0 0 20px 0;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  opacity: 0.9;
-}
-
-.timer-value {
-  font-size: 96px;
+.timer-time {
+  font-size: 5rem;
   font-weight: bold;
+  color: white;
   font-family: 'Courier New', monospace;
-  letter-spacing: 2px;
-  margin: 0;
 }
 
-.pulse-indicator {
-  position: absolute;
-  top: 10px;
-  right: 20px;
-  font-size: 20px;
-  animation: blink 1s infinite;
+.timer-circle.paused .timer-time,
+.timer-circle.stopped .timer-time {
+  color: #2c3e50;
 }
 
-@keyframes blink {
-  0%, 49%, 100% {
-    opacity: 1;
-  }
-  50%, 99% {
-    opacity: 0.3;
-  }
+.task-display {
+  font-size: 1.1rem;
+  text-align: center;
+  max-width: 400px;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 0.5rem;
+  color: #2c3e50;
 }

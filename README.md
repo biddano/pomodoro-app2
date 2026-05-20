@@ -1,169 +1,173 @@
-# Pomodoro Timer App
+# Pomodoro Timer App V1
 
-A simple, focused Pomodoro timer application built with ASP.NET Core (C#) backend and React (TypeScript) frontend.
+A minimal, focused Pomodoro timer application with a React frontend and ASP.NET Core backend following clean architecture principles.
 
 ## Features
 
-- **Focus Timer**: 25-minute focused work sessions
-- **Break Timer**: 5-minute break intervals
-- **Mode Switching**: Easily switch between Focus and Break modes
-- **Timer Controls**: Start, Pause, and Reset functionality
-- **Key Task Tracking**: Enter and display one key task per session
-- **Persistent State**: SQLite database for storing timer and task data
+- ✅ **Focus Timer**: 25-minute focused work sessions
+- ✅ **Break Timer**: 5-minute break intervals
+- ✅ **Mode Switching**: Easily switch between Focus and Break modes
+- ✅ **Timer Controls**: Start, Pause/Resume, Stop, and Reset functionality
+- ✅ **Task Tracking**: Enter and display one key task per session
+- ✅ **Persistent State**: SQLite database for storing timer state
+- ✅ **Real-time Updates**: Server-side countdown with frontend polling
 
 ## Project Structure
 
 ```
 pomodoro-app2/
 ├── backend/
-│   ├── PomodoroApp/          # C# ASP.NET Core backend
-│   │   ├── Features/
-│   │   │   ├── Timer/        # Timer feature (service & controller)
-│   │   │   └── Task/         # Task feature (service & controller)
-│   │   ├── Data/             # Database context & models
-│   │   └── Program.cs        # App configuration
-│   └── PomodoroApp.sln       # .NET solution file
-├── frontend/                  # React + TypeScript frontend
+│   ├── PomodoroApp.Domain/           # Domain entities & enums
+│   ├── PomodoroApp.Application/      # Business logic & service interfaces
+│   ├── PomodoroApp.Data/             # EF Core, DbContext, repositories
+│   ├── PomodoroApp.WebApi/           # Minimal API endpoints
+│   │   ├── Features/Timer/           # Timer endpoints
+│   │   ├── Services/                 # Background services
+│   │   └── Program.cs
+│   └── PomodoroApp.sln
+├── frontend/
 │   ├── src/
-│   │   ├── components/       # React components
-│   │   ├── services/         # API client services
-│   │   └── App.tsx           # Main app component
-│   ├── vite.config.ts        # Vite configuration
-│   └── package.json          # Dependencies
-└── docs/
-    └── requirements-doc.md   # Product requirements
+│   │   ├── api/                      # API client (timerApi.ts)
+│   │   ├── components/               # React components
+│   │   │   ├── TimerDisplay.tsx
+│   │   │   ├── TimerControls.tsx
+│   │   │   └── *.css
+│   │   ├── App.tsx                   # Main app
+│   │   └── ...
+│   └── package.json
+└── README.md
 ```
 
 ## Architecture
 
-### Backend
-- **Feature-based organization**: Each feature (Timer, Task) is a self-contained module
-- **Thin Controllers**: API endpoints delegate to service layer
-- **Business Logic Separation**: Core timer logic isolated from HTTP layer
-- **SQLite Database**: Persistent storage with Entity Framework Core
-- **CORS Enabled**: Configured for React frontend communication
+### Backend (Clean Architecture)
 
-### Frontend
-- **Component-based**: Timer display, controls, and task input as separate components
-- **Type-safe**: Full TypeScript support
-- **API Client**: Centralized service for backend communication
-- **Responsive Design**: Works on desktop and mobile
+- **Domain Layer** (PomodoroApp.Domain)
+  - `Timer` entity with TimerMode and TimerStatus enums
+  - Pure domain models with no dependencies
+
+- **Application Layer** (PomodoroApp.Application)
+  - `ITimerService` interface & implementation
+  - `ITimerRepository` interface definition
+  - DTOs for API communication
+  - Business logic (timer mode switching, state transitions)
+
+- **Data Layer** (PomodoroApp.Data)
+  - `PomodoroDbContext` using EF Core
+  - `TimerRepository` implementation
+  - Database configuration via `TimerConfiguration`
+  - SQLite database with automatic schema creation
+
+- **WebApi Layer** (PomodoroApp.WebApi)
+  - Minimal API endpoints with dependency injection
+  - CORS configuration for React frontend
+  - `TimerBackgroundService` for server-side countdown
+  - Primary constructor-based dependency injection
+
+### Frontend (React + TypeScript)
+
+- **API Client** (`api/timerApi.ts`): Centralized communication with backend
+- **Components**:
+  - `TimerDisplay`: Shows timer countdown and mode
+  - `TimerControls`: Buttons for start/pause/resume/stop/reset and mode switching
+- **State Management**: React hooks (useState, useEffect, useRef)
+- **Polling**: 1-second polling when timer is running
 
 ## Getting Started
 
 ### Prerequisites
 - .NET 10 SDK
-- Node.js 18+
-- npm
+- Node.js 16+
+- npm 8+
 
-### Backend Setup
+### Quick Start
 
-1. Navigate to backend directory:
-```bash
-cd backend/PomodoroApp
+From the root directory:
+
+```powershell
+# Start both backend (port 5000) and frontend (port 3000)
+.\start-dev.ps1
 ```
 
-2. Build the project:
-```bash
-dotnet build
-```
+Then open `http://localhost:3000` in your browser.
 
-3. Run the backend (runs on `https://localhost:7200`):
+### Manual Start
+
+**Backend:**
 ```bash
+cd backend
 dotnet run
+# Runs on http://localhost:5000
 ```
 
-The backend will automatically create the SQLite database on first run.
-
-### Frontend Setup
-
-1. Navigate to frontend directory:
+**Frontend (in another terminal):**
 ```bash
 cd frontend
+npm start
+# Runs on http://localhost:3000
 ```
-
-2. Install dependencies:
-```bash
-npm install
-```
-
-3. Start the development server (runs on `http://localhost:5173`):
-```bash
-npm run dev
-```
-
-### Using the App
-
-1. Open your browser to `http://localhost:5173`
-2. Enter your key task for the session
-3. Choose Focus (25 min) or Break (5 min) mode
-4. Click Start to begin the timer
-5. Use Pause and Reset as needed
-6. Switch between modes anytime
 
 ## API Endpoints
 
-### Timer Endpoints
-- `GET /api/timer/current` - Get current timer state
-- `POST /api/timer/start` - Start the timer
-- `POST /api/timer/pause` - Pause the timer
-- `POST /api/timer/reset` - Reset the timer
-- `POST /api/timer/switch-mode?mode={Focus|Break}` - Switch timer mode
+All endpoints return a `Timer` DTO:
 
-### Task Endpoints
-- `GET /api/task/current` - Get current task
-- `POST /api/task/create` - Create or update task
-- `POST /api/task/clear` - Clear current task
-
-## Development
-
-### Build Backend
-```bash
-cd backend/PomodoroApp
-dotnet build
+```json
+{
+  "id": 1,
+  "mode": "Focus",
+  "remainingSeconds": 1500,
+  "status": "Running",
+  "task": "Complete project"
+}
 ```
 
-### Build Frontend
-```bash
-cd frontend
-npm run build
-```
+### Timer Operations
+- `GET /api/timer/` - Get current timer state
+- `POST /api/timer/start` - Start timer (optionally set task)
+- `POST /api/timer/pause` - Pause running timer
+- `POST /api/timer/resume` - Resume paused timer
+- `POST /api/timer/stop` - Stop and reset countdown
+- `POST /api/timer/reset` - Reset to default duration
+- `POST /api/timer/switch-mode` - Switch between Focus/Break
+- `POST /api/timer/set-task` - Update task
 
-### Run Tests
-Backend:
-```bash
-dotnet test
-```
+## Database
 
-Frontend:
-```bash
-npm run test
-```
+SQLite database created at: `backend/PomodoroApp.WebApi/bin/Debug/net10.0/pomodoro.db`
+
+Automatically initialized on first run via `EnsureCreated()`.
+
+## How It Works
+
+1. **Frontend**: User enters a task and starts the timer
+2. **Backend**: 
+   - Creates/updates Timer entity in database
+   - Sets status to "Running"
+   - `TimerBackgroundService` decrements remaining seconds every second
+3. **Frontend**: Polls `/api/timer/` every second to get updated countdown
+4. **Display**: Shows real-time countdown and current mode
+
+## Development Notes
+
+- Clean architecture with clear separation of concerns
+- Primary constructor syntax for dependency injection
+- Async/await throughout for I/O operations
+- No magic: straightforward service implementations
+- Database auto-migration on startup
+- CORS configured to allow React frontend
 
 ## Tech Stack
 
-- **Backend**: ASP.NET Core 10, Entity Framework Core, SQLite
-- **Frontend**: React 19, TypeScript, Vite, CSS3
-- **Database**: SQLite (file-based)
+- **Backend**: ASP.NET Core 10, Entity Framework Core 10, SQLite
+- **Frontend**: React 19, TypeScript, CSS3 (no build tool needed - Create React App)
+- **Database**: SQLite (file-based, no external dependency)
 
-## Architecture Principles
+## Future Enhancements (Out of V1)
 
-1. **Keep it Simple**: No unnecessary abstractions
-2. **Feature-based Organization**: Related code grouped by feature, not by type
-3. **Thin Controllers**: Controllers delegate business logic to services
-4. **Testable Logic**: Business rules isolated and independently testable
-5. **Separated Concerns**: Timer logic separated from HTTP layer
-
-## Future Enhancements (Out of V1 Scope)
-
-- User authentication and accounts
-- Timer history and statistics
+- User authentication
+- Timer history & statistics
 - Custom timer durations
 - Multiple tasks per session
 - Automatic Pomodoro cycles
-- Desktop notifications
-- Calendar integration
-
-## License
-
-MIT
+- Desktop/browser notifications
+- Offline support
