@@ -1,9 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(Get-ChildItem -Path C:\\\\repos\\\\pomodoro-app2 -Force)",
-      "Bash(Select-Object Name, FullName)",
-      "Bash(curl -s http://localhost:5000/api/timer/)"
-    ]
-  }
-}
