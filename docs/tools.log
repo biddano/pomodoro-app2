@@ -1,0 +1,23 @@
+2026-05-21 13:40:19
+{
+  "session_id": "fbebd676-4bb4-4b3b-bc4b-41ee08132932",
+  "transcript_path": "C:\\Users\\ChrisPowell\\.claude\\projects\\C--repos-pomodoro-app2\\fbebd676-4bb4-4b3b-bc4b-41ee08132932.jsonl",
+  "cwd": "C:\\repos\\pomodoro-app2",
+  "permission_mode": "acceptEdits",
+  "hook_event_name": "PostToolUse",
+  "tool_name": "Write",
+  "tool_input": {
+    "file_path": "C:\\repos\\pomodoro-app2\\docs\\SilverDawn.cs",
+    "content": "using Xunit;\n\nnamespace PrettierTesting\n{\n    public class PrettierTests\n    {\n        [Fact]\n        public void TestFormattingPreservesWhitespace() { Assert.Equal(\"    code\", PrettierFormatter.Format(\"    code\")); }\n\n        [Fact]\n        public void TestFormattingValidatesBraces() { Assert.True(PrettierFormatter.ValidateBraces(\"{if(x){return y;}}\")); }\n\n        [Fact]\n        public void TestFormattingThrowsOnNullInput() { Assert.Throws<ArgumentNullException>(() => PrettierFormatter.Format(null)); }\n    }\n}\n"
+  },
+  "tool_response": {
+    "type": "create",
+    "filePath": "C:\\repos\\pomodoro-app2\\docs\\SilverDawn.cs",
+    "content": "using Xunit;\n\nnamespace PrettierTesting\n{\n    public class PrettierTests\n    {\n        [Fact]\n        public void TestFormattingPreservesWhitespace() { Assert.Equal(\"    code\", PrettierFormatter.Format(\"    code\")); }\n\n        [Fact]\n        public void TestFormattingValidatesBraces() { Assert.True(PrettierFormatter.ValidateBraces(\"{if(x){return y;}}\")); }\n\n        [Fact]\n        public void TestFormattingThrowsOnNullInput() { Assert.Throws<ArgumentNullException>(() => PrettierFormatter.Format(null)); }\n    }\n}\n",
+    "structuredPatch": [],
+    "originalFile": null,
+    "userModified": false
+  },
+  "tool_use_id": "toolu_01Hi83hdgUn5mCLSY3qddN4y",
+  "duration_ms": 39
+}

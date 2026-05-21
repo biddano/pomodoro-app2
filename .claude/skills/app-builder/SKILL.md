@@ -15,7 +15,7 @@ Builder:
         b. Review the architecture requirements
 
     - Clean Architecture
-    	a. Follow clean architecture pattern for backend.
+    a. Follow clean architecture pattern for backend.
 			i. Webapi presenter project
 			ii. Application project
 			iii. Domain project
@@ -28,12 +28,12 @@ Builder:
 		g. Webapi calls services in Application project, by their interface.
 
     - Build Projects
-    	a. Class Libraries are .net10
+    a. Class Libraries are .net10
 		b. Asp.Net WebApi library.
 		c. 	Minimal APIs.  Features defined in their own static modules, to be used in the Program.cs file.
 
     - Csharp Coding
-    	a. Use Primary Constructors with Dependency Injection.
+    a. Use Primary Constructors with Dependency Injection.
 		b. Each database object definition to be defined in its own file.  In a static class that is called by the dbcontext onmodelcreate method.
 		c. Interfaces are defined in their own file, in an "Abstractions" folder in the project.
 
