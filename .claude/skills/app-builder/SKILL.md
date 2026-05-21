@@ -37,7 +37,10 @@ Builder:
 		b. Each database object definition to be defined in its own file.  In a static class that is called by the dbcontext onmodelcreate method.
 		c. Interfaces are defined in their own file, in an "Abstractions" folder in the project.
 
-    - Build React Project
+    - Build the WebApi backend first.
+    - Use the Write tool to create an empty .netCodeCompete.txt file.
+
+    - Build React Project next.
 
     - React Coding
       - for enums that originate from the backend, ensure we have a mapping object on the frontend
