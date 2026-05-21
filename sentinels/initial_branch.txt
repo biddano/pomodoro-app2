@@ -1,0 +1,3 @@
+Do not run git checkout or git branch manually.
+You will need to run the hook `git-branch-setup.sh` before any code work is started.
+The output is the new branch name should be a log file in `outputs/branch_name.txt`.
