@@ -20,17 +20,12 @@ esac
 # ── Check current branch ─────────────────────────────────────────────────────
 CURRENT_BRANCH=$(git symbolic-ref --short HEAD 2>/dev/null || echo "HEAD")
 
-# Already on a feature branch — nothing to do
-if [[ "$CURRENT_BRANCH" != "main" && "$CURRENT_BRANCH" != "master" ]]; then
-  exit 0
-fi
-
 # ── Derive a slug from the agent's tool input ────────────────────────────────
 # For Write/Edit/MultiEdit use the target file path; for Bash use the command.
 slugify() {
   echo "$1" | tr '[:upper:]' '[:lower:]' \
-    | sed 's|.*/||'          `# keep basename only` \
-    | sed 's/\.[^.]*$//'     `# strip extension` \
+    | sed 's|.*/||'          \
+    | sed 's/\.[^.]*$//'     \
     | sed 's/[^a-z0-9]/-/g' \
     | sed 's/--*/-/g'        \
     | sed 's/^-//;s/-$//'    \
@@ -68,6 +63,11 @@ else
 fi
 
 NEW_BRANCH="${BRANCH_PREFIX}-${NEXT}"
+
+# If we are already on an incremented branch with this prefix, skip branching.
+if [[ "$CURRENT_BRANCH" =~ ^${BRANCH_PREFIX}-[0-9]{3}$ ]]; then
+  exit 0
+fi
 
 # ── Ensure working tree is clean before branching ───────────────────────────
 if ! git diff --quiet || ! git diff --cached --quiet; then
