@@ -1,6 +1,6 @@
 ---
   name: create-dotnet-projects
-  description: When creating .Net projects, follow best practices and conventions to ensure maintainability, scalability, and separation of concerns.
+  description: When creating .Net projects
   dependencies: dotnet-sdk >= 10.0
 ---
 
@@ -11,3 +11,4 @@ When creating .Net projects, you will:
 - remove unnecessary files like class1.cs and weatherforecast.cs
 - ensure that the WebApi is a Asp.Net WebApi library.
 - Use Minimal APIs, not controllers.  Feature endpoints defined in their own static modules, to be used in the Program.cs file.
+- follow best practices and conventions to ensure maintainability, scalability, and separation of concerns.

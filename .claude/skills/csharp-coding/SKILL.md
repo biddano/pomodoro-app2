@@ -1,6 +1,6 @@
 ---
   name: csharp-coding
-  description: When writing C# code, follow best practices and conventions to ensure readability, maintainability, and performance.
+  description: When writing C# code
   dependencies: dotnet-sdk >= 10.0
 ---
 
@@ -11,3 +11,4 @@ When writing C# code, you will:
 - Each database object definition to be defined in its own file.  In a static class that is called by the dbcontext onmodelcreate method.
 - Interfaces are defined in their own file, in an "Abstractions" folder in the project.
 - Use the options pattern for configuration, and ensure that all configuration values are stored in the appsettings.json file, and not hardcoded in the code.
+- follow best practices and conventions to ensure readability, maintainability, and performance.

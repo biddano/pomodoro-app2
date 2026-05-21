@@ -2,16 +2,22 @@
 
 ## Overview
 
-The Pomodoro app is a simple focus timer that helps users work in focused 25-minute sessions, take 5-minute breaks, and associate each focus session with one key task. The mascot of the app should be a pomeranian dog.
+The Pomodoro app is a simple focus timer that helps users work in focused 25-minute sessions, take 5-minute breaks, and associate each focus session with one key task. 
+The mascot of the app should be a pomeranian dog with a tomato timer.
 
 ## Architecture
+
+### Tech stack:
+- Backend will be an ASP.NET WebApi.
+- Backend will follow Clean Architecture guidelines.
+- Frontend, will be a React web application.
+- The frontend will use the backend webapi.
 
 ### Architecture Guidelines
 
 * Keep the architecture simple.
 * Do not add abstractions until they are needed.
 * Prefer feature-based organization over large generic folders.
-* Keep controllers thin.
 * Keep business rules testable.
 * Avoid placing timer logic directly in API endpoints.
 * Keep V1 focused on the basic Pomodoro workflow.
@@ -19,10 +25,7 @@ The Pomodoro app is a simple focus timer that helps users work in focused 25-min
 ### Database for state management
 
 The backend will use SqlLite for storage/state management. 
-Initial database resopnsibilities:
-* Create a db schema
-* Initialize the db tables
-* Create the DTO objects based on the db tables in the backend code base.
+
 
 ## Goal
 
@@ -38,12 +41,16 @@ Help users stay focused by providing a minimal timer workflow for alternating be
 - Timer counts down from 25:00 to 00:00.
 - User can stop/pause the timer.
 - User can reset the timer back to 25:00.
+- When the timer reaches 00:00, a 2 second alarm sound will sound.
+- After the alarm finishes sounding, the Break timer will start.
 
 #### 2. Break Timer
 
 - User can switch to a 5-minute break timer.
 - Timer counts down from 5:00 to 00:00.
 - User can start, stop/pause, and reset the break timer.
+- When the timer reaches 00:00, a 2 second alarm sound will sound.
+- After the alarm finishes sounding, the Focus timer will start.
 
 #### 3. Timer Mode Switching
 
@@ -61,11 +68,18 @@ The app should include the following controls:
 - Stop/Pause
 - Reset
 
-#### 5. Key Task
+#### 5. Task Name
 
-- User can enter one key task for the current timer session.
+- User can enter the task name for the current timer session.
 - The task should be displayed while the timer is active.
 - User can update or clear the task before starting a timer.
+- If a task name is entered, it will be loaded when the application starts.
+
+#### 6. Task Controls
+
+- Task label
+- Text box to allow the user to enter a task name.
+- Save button to update the task name.
 
 ## Non-Goals for V1
 
@@ -79,7 +93,6 @@ The following are out of scope for the first version:
   - Calendar integration
   - Analytics or reporting
   - Multiple tasks per session
-  - Automatic Pomodoro cycles
 
 ## Basic User Flow
 
@@ -98,3 +111,4 @@ V1 is complete when:
   - User can start, stop/pause, and reset the timer.
   - User can switch between focus and break modes.
   - User can enter and view one key task for the timer session.
+  - Alarm sounds for 3 seconds when a time reaches 00:00.

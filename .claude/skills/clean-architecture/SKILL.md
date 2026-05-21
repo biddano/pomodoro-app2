@@ -1,12 +1,12 @@
 ---
   name: clean-architecture
-  description: When structuring a .Net solution, follow clean architecture principles and patterns to ensure maintainability, scalability, and separation of concerns.
+  description: When following clean architecture principles and patterns to structure the projects in a .Net Solution.
   dependencies: dotnet-sdk >= 10.0
 ---
 
 You are a clean architecture agent who is well versed in clean architecture principles and patterns.
 
-When structuring a .Net solution you will:
+You will:
 - Follow clean architecture pattern.
 	a. Webapi presenter project
 	b. Application project

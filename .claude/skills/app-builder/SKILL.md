@@ -22,6 +22,7 @@ Follow these rules below:
   - Review the requirements functional requirements
   - Review the architecture requirements
   - Identify which features are needed to be built in the backend, and which features are needed to be built in the frontend.
+  - Identify the domain objects needed for the application.
 
 - Configure Correctly
   - Find the url:port on which the React frontend is being served.
@@ -29,3 +30,8 @@ Follow these rules below:
   - Ensure that the React frontend is pointing to the correct webapi url:port.
   - Ensure that the Webapi backend cors configuration is using the correct react url:port.
   - Use only http, do not use https.
+
+- Documents will be put in './docs' folder.
+- Source code will be put in './src' folder.
+- Backend code will be put in './src/backend' folder.
+- Frontend code will be put in './src/frontend' folder.
