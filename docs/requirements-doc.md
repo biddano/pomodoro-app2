@@ -22,7 +22,7 @@ The mascot of the app should be a pomeranian dog with a tomato timer.
 * Avoid placing timer logic directly in API endpoints.
 * Keep V1 focused on the basic Pomodoro workflow.
 
-### Database for state management
+### Database
 
 The backend will use SqlLite for storage/state management. 
 
@@ -38,6 +38,7 @@ Help users stay focused by providing a minimal timer workflow for alternating be
 #### 1. Focus Timer
 
 - User can start a 25-minute focus timer.
+- Task name appears above the countdown timer.
 - Timer counts down from 25:00 to 00:00.
 - User can stop/pause the timer.
 - User can reset the timer back to 25:00.
@@ -73,7 +74,7 @@ The app should include the following controls:
 - User can enter the task name for the current timer session.
 - The task should be displayed while the timer is active.
 - User can update or clear the task before starting a timer.
-- If a task name is entered, it will be loaded when the application starts.
+- If a task name hsa been entered, it will be loaded when the application starts.
 
 #### 6. Task Controls
 

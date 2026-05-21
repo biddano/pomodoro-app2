@@ -31,7 +31,15 @@ Follow these rules below:
   - Ensure that the Webapi backend cors configuration is using the correct react url:port.
   - Use only http, do not use https.
 
-- Documents will be put in './docs' folder.
-- Source code will be put in './src' folder.
-- Backend code will be put in './src/backend' folder.
-- Frontend code will be put in './src/frontend' folder.
+- Document artifacts will be put in './docs'.
+- Source code will be put in './src'.
+  - Backend code will be put in './src/backend'.
+  - Frontend code will be put in './src/frontend'.
+  
+- Testing
+  - Write unit tests for the backend and frontend code.
+  - Ensure that the tests cover the core features of the application.
+
+- Functional testing
+  - Ensure that the webapi backend is functional and can handle requests from the frontend.
+  - Ensure that the React frontend is functional and can communicate with the backend.
