@@ -98,3 +98,7 @@ V1 is complete when:
   - User can start, stop/pause, and reset the timer.
   - User can switch between focus and break modes.
   - User can enter and view one key task for the timer session.
+
+## Automation
+
+For git branching: A `PreToolUse` hook (`.claude/hooks/git-branch-setup.sh`) runs automatically before any file is written or edited.
