@@ -16,3 +16,4 @@ dist/
 
 **/.vs
 *.user
+.claude/settings.local.json
