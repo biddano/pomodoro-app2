@@ -100,4 +100,4 @@ V1 is complete when:
   - User can enter and view one key task for the timer session.
 
 ## Automation Hooks
- - For git branching: Git branching is managed automatically by a PreToolUse hook. Do not run git checkout or git branch manually.
+ - For git branching: Git branching is managed automatically the file `./sentinels/initial_branch.txt`.  Once the branch is created other than main, you will checkt the `./sentinels/outputs/branch_name.txt` to see if the branch name matches. At the end of the event delete the output.
