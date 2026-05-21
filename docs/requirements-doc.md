@@ -98,3 +98,6 @@ V1 is complete when:
   - User can start, stop/pause, and reset the timer.
   - User can switch between focus and break modes.
   - User can enter and view one key task for the timer session.
+
+## Automation Hooks
+ - For git branching: Git branching is managed automatically by a PreToolUse hook. Do not run git checkout or git branch manually.
