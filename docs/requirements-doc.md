@@ -6,6 +6,12 @@ The Pomodoro app is a simple focus timer that helps users work in focused 25-min
 
 ## Architecture
 
+### Software bill of materials
+* dotnet-sdk >= 10.0
+* node >= 20
+* npm >= 11
+
+
 ### Architecture Guidelines
 
 * Keep the architecture simple.
